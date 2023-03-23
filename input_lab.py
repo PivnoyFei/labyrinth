@@ -36,9 +36,10 @@ def matrix() -> list[list[str]]:
     width = 201  # int(input("Введите ширину лабиринта"))
     height = 11  # int(input("Введите высоту лабиринта"))
 
-    for i in (width, height):
-        if i % 2 != 0:
-            i += 1
+    if width % 2 != 0:
+        width += 1
+    if height % 2 != 0:
+        height += 1
 
     return [
         ["#" if x % 2 == 0 or y % 2 == 0 else " " for x in range(width)]

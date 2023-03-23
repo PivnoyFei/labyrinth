@@ -5,33 +5,33 @@ import input_lab
 
 
 def our_way(start: tuple, end: tuple, path: list) -> deque:
-    i, j = start
+    y, x = start
     way = deque()
     visited = {start}
     steps = ((0, 1), (1, 0), (0, -1), (-1, 0), (1, 1), (1, -1), (-1, -1), (-1, 1))
     count = 0
 
-    while (i, j) != end:
+    while (y, x) != end:
         found = False
 
-        for di, dj in steps:
-            new_i, new_j = i + di, j + dj
-            new_point = (new_i, new_j)
+        for dy, dx in steps:
+            new_y, new_x = y + dy, x + dx
+            new_point = (new_y, new_x)
 
-            if path[new_i][new_j] == count + 1 and new_point not in visited:
-                if (i, j) not in way:
-                    way.append((i, j))
+            if path[new_y][new_x] == str(count + 1) and new_point not in visited:
+                if (y, x) not in way:
+                    way.append((y, x))
                 way.append(new_point)
-                i, j = new_i, new_j
+                y, x = new_y, new_x
                 found = True
                 count += 1
                 break
 
         if found:
             continue
-        i, j = way.pop()
-        count = int(path[i][j])
-        visited.add((i, j))
+        y, x = way.pop()
+        count = int(path[y][x])
+        visited.add((y, x))
 
     way.pop()
     way.popleft()
@@ -46,14 +46,14 @@ def weights(start: tuple, end: tuple, labyrinth: list) -> list:
 
     flag = True
     while flag:
-        x, y = way.popleft()
+        y, x = way.popleft()
 
-        for dx, dy in steps:
-            new_x, new_y = x + dx, y + dy
-            new_point = (new_x, new_y)
+        for dy, dx in steps:
+            new_y, new_x = y + dy, x + dx
+            new_point = (new_y, new_x)
 
-            if labyrinth[new_x][new_y] != "#" and new_point not in visited:
-                labyrinth[new_x][new_y] = int(labyrinth[x][y]) + 1
+            if labyrinth[new_y][new_x] != "#" and new_point not in visited:
+                labyrinth[new_y][new_x] = str(int(labyrinth[y][x]) + 1)
                 visited.add(new_point)
                 way.append(new_point)
                 if end == new_point:
@@ -76,7 +76,7 @@ def print_path(labyrinth: list, way: deque) -> None:
 
 if __name__ == "__main__":
     people = input(
-        "Сгенерировать лабиринт просто нажмите интер"
+        "Сгенерировать лабиринт просто нажмите интер\n"
         "или введите что угодно что бы воспользоваться своим."
     )
     if people:
